@@ -1,8 +1,20 @@
-package desch.cards;
+package cards;
 
-public class Hand {
-   
-    private ArrayList<Card> cardsDeck() {
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class Hand implements Iterable<Card> {
+
+    private Card[] hand;
+
+    public Hand(int number) {
+        hand = new Card[number];
+        takeHand();
+    }
+
+    private ArrayList<Card> cardsPack52() {
         var deck = new ArrayList<Card>();
         for(Card.Suit suit: Card.Suit.values()) {
             for(Card.Rank rank: Card.Rank.values()) {
@@ -13,10 +25,9 @@ public class Hand {
     }
 
     public Card[] takeHand() {
-        var deck = cardsDeck();
+        var deck = cardsPack52();
         Collections.shuffle(deck);
-        
-        var hand = new Card[7];
+
         for(var i=0; i<hand.length; i++)
             hand[i] = deck.get(i);
         return hand;
@@ -48,7 +59,7 @@ public class Hand {
         return false;
     }
 
-    public boolean isFlash(Card[] hand) {
+    public boolean isFlash() {
         int similar;
         for(int i=0; i<hand.length; i++) {
             similar = 1;
@@ -60,7 +71,7 @@ public class Hand {
         return false;
     }
 
-    public boolean isQuads(Card[] hand) {
+    public boolean isQuads() {
         int similar;
         for(int i=0; i<hand.length; i++) {
             similar = 1;
@@ -70,6 +81,14 @@ public class Hand {
             if(similar==4) return true;
         }
         return false;
+    }
+
+    public String toString() {
+        return Arrays.toString(hand);
+    }
+
+    public Iterator<Card> iterator() {
+        return new HandIterator(hand);
     }
 
 }

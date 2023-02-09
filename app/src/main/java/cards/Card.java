@@ -1,4 +1,4 @@
-package desch.cards;
+package cards;
 
 public class Card {
 
