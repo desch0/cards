@@ -40,6 +40,33 @@ public class Hand implements Iterable<Card> {
 		return false;
     }
 
+    
+    public boolean isPair() {
+        int similar=1;
+
+        for(int i=0; i<hand.length; i++) {
+            similar = 1;
+            for(int x=i+1; x<hand.length; x++) {
+                if(hand[i].getRank()==hand[x].getRank()) similar++;
+                if(similar==2) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isSet() {
+        int similar=1;
+
+        for(int i=0; i<hand.length; i++) {
+            similar = 1;
+            for(int x=i+1; x<hand.length; x++) {
+                if(hand[i].getRank()==hand[x].getRank()) similar++;
+                if(similar==3) return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isRoyalStraight(Card[] hand) {
         if(contains(hand, 10) && contains(hand, 11) && contains(hand, 12) && contains(hand, 13) &&contains(hand, 14))
             return true;
